@@ -1,11 +1,13 @@
-THE WEEKLY FLYER STUDIO – PWA PARA ANDROID
+THE WEEKLY FLYER STUDIO — PWA CON DIAGNÓSTICO
 
-IMPORTANTE: Este ZIP NO es un APK. No puedes instalarlo desde el gestor de archivos.
+GitHub Pages:
+1. En el repositorio habilita Settings > Pages > Build and deployment > Deploy from a branch > main / (root).
+2. En la RAÍZ de esa rama (no dentro de una carpeta extra) deben estar:
+   index.html, manifest.webmanifest, sw.js, icons/
+3. Abre la dirección PUBLICADA https://USUARIO.github.io/REPOSITORIO/
+   No abras github.com/USUARIO/REPOSITORIO.
+4. Toca «Revisar instalación»; si falla algún icono o el manifest, revisa sus rutas.
+5. Pulsa «Instalar en Android», o menú de Chrome ⋮ > Añadir a pantalla de inicio / Instalar aplicación.
+6. Espera a que el sitio haya terminado de desplegar. Si acabas de sobrescribir archivos, recarga la página en Chrome.
 
-1. Descomprime el ZIP.
-2. Publica JUNTOS index.html, manifest.webmanifest, sw.js y la carpeta icons/ en un sitio HTTPS (Netlify Drop o GitHub Pages).
-3. Abre la dirección HTTPS en Chrome actualizado en tu Android.
-4. En el menú ⋮ selecciona «Instalar aplicación» o usa el botón «Instalar aplicación» que aparecerá cuando Chrome lo permita.
-5. Si solo aparece «Añadir a pantalla de inicio», revisa que manifest.webmanifest e iconos carguen correctamente, que no abras una vista previa dentro de otra aplicación y que la web esté publicada con HTTPS.
-
-NOTA: El editor funciona de manera local con las imágenes que eliges. Algunas funciones de codificación MP4 cargan bibliotecas en línea; su disponibilidad depende del navegador y de la conexión.
+Este ZIP no es APK. Chrome decide cuándo mostrar el aviso. La app no puede forzar un aviso que el navegador no autorice.
