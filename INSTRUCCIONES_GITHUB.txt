@@ -1,0 +1,24 @@
+THE WEEKLY FLYER STUDIO — PWA FINAL PARA GITHUB PAGES
+=======================================================
+1. DESCOMPRIME el ZIP. NO subas el ZIP cerrado a GitHub.
+2. Abre tu repositorio: https://github.com/apishunior2024/horizontal-con-circulo
+3. En la RAÍZ del repositorio (junto a index.html), sube estos archivos exactos:
+   index.html, manifest.webmanifest, sw.js,
+   icon-192.png, icon-512.png, icon-maskable-192.png, icon-maskable-512.png.
+   Puedes subir también INSTRUCCIONES_GITHUB.txt.
+4. Haz Commit changes y espera a que GitHub Pages publique los cambios.
+5. Abre https://apishunior2024.github.io/horizontal-con-circulo/
+6. Verifica con Chrome estos dos enlaces (deben abrir imágenes, NO mostrar HTTP 404):
+   https://apishunior2024.github.io/horizontal-con-circulo/icon-192.png
+   https://apishunior2024.github.io/horizontal-con-circulo/icon-512.png
+7. En Chrome Android abre el sitio (NO archivo local) y toca «Revisar instalación».
+8. Si todas las líneas son verdes, usa ⋮ > Instalar aplicación o Añadir a pantalla principal.
+   También puedes usar el botón Instalar si Chrome ofrece el evento de instalación.
+9. Si cargas una versión vieja, actualiza la página y borra los datos del sitio en Chrome.
+
+IMPORTANTE
+- No es un archivo APK. La PWA requiere publicación HTTPS y autorización de Chrome.
+- La exportación MP4 H.264 usa WebCodecs y requiere soporte del navegador y del dispositivo.
+- La primera exportación MP4 importa un componente desde una CDN (necesita conexión).
+- No se ha probado la instalación ni el MP4 en tu teléfono específico.
+- El archivo index.html por sí solo NO es instalable como PWA.

@@ -1,0 +1,6 @@
+// v6: cache limpio, rutas relativas compatibles con GitHub Pages /repositorio/
+const CACHE = 'weekly-flyer-studio-v6';
+const FILES = ['./index.html','./manifest.webmanifest','./icon-192.png','./icon-512.png','./icon-maskable-192.png','./icon-maskable-512.png'];
+self.addEventListener('install', event => {event.waitUntil((async()=>{const cache=await caches.open(CACHE); await cache.addAll(FILES.map(p=>new Request(p,{cache:'reload'}))); await self.skipWaiting();})());});
+self.addEventListener('activate',event=>{event.waitUntil((async()=>{for(const key of await caches.keys()) if(key !== CACHE && (key.startsWith('weekly-flyer-')||key.startsWith('flyer-studio-pwa-'))) await caches.delete(key);await self.clients.claim();})());});
+self.addEventListener('fetch',event=>{const req=event.request;if(req.method!=='GET'||new URL(req.url).origin!==self.location.origin)return; const url=new URL(req.url);if(!url.pathname.startsWith(new URL(self.registration.scope).pathname))return;event.respondWith((async()=>{const cache=await caches.open(CACHE);try{const fresh=await fetch(req);if(fresh.ok && url.origin===location.origin) await cache.put(req,fresh.clone());return fresh;}catch(e){return (await cache.match(req,{ignoreSearch:true})) || Response.error();}})());});
