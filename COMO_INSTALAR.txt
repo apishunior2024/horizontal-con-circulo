@@ -1,12 +1,11 @@
-THE WEEKLY FLYER STUDIO — MP4 ANDROID
+THE WEEKLY FLYER STUDIO – PWA PARA ANDROID
 
-1. Publica los archivos de esta carpeta en un sitio HTTPS (GitHub Pages o Netlify).
-2. Abre la URL con Chrome Android actualizado y selecciona Instalar aplicación.
-3. Carga imágenes y dibuja tus marcas.
-4. Para MP4 usa «Guardar MP4 H.264 COMPLETO», no «Grabar alternativo».
-5. En Chrome elige un archivo de destino; la aplicación escribe directamente allí, reduciendo uso de RAM.
-6. Si falla codificación HD, utiliza 854x480 o 640x360.
-7. Necesita conexión para cargar la biblioteca mp4-muxer (CDN), salvo que ya esté en caché del navegador.
-8. No se incluye audio; agrega narración en CapCut.
+IMPORTANTE: Este ZIP NO es un APK. No puedes instalarlo desde el gestor de archivos.
 
-La compatibilidad real de codificación H.264 y guardado depende de Chrome y del hardware. No se ha probado en todos los equipos.
+1. Descomprime el ZIP.
+2. Publica JUNTOS index.html, manifest.webmanifest, sw.js y la carpeta icons/ en un sitio HTTPS (Netlify Drop o GitHub Pages).
+3. Abre la dirección HTTPS en Chrome actualizado en tu Android.
+4. En el menú ⋮ selecciona «Instalar aplicación» o usa el botón «Instalar aplicación» que aparecerá cuando Chrome lo permita.
+5. Si solo aparece «Añadir a pantalla de inicio», revisa que manifest.webmanifest e iconos carguen correctamente, que no abras una vista previa dentro de otra aplicación y que la web esté publicada con HTTPS.
+
+NOTA: El editor funciona de manera local con las imágenes que eliges. Algunas funciones de codificación MP4 cargan bibliotecas en línea; su disponibilidad depende del navegador y de la conexión.

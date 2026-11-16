@@ -5,7 +5,7 @@
 <title>The Weekly Flyer Studio</title>
 <meta name="theme-color" content="#101c2c">
 <meta name="description" content="Editor de folletos y ofertas con marcas, acercamientos y grabación automática">
-<link rel="manifest" href="manifest.webmanifest">
+<link rel="manifest" href="./manifest.webmanifest"><link rel="icon" type="image/png" sizes="192x192" href="./icons/icon-192.png"><link rel="apple-touch-icon" href="./icons/icon-192.png">
 <link rel="icon" type="image/png" href="icons/icon-192.png">
 <link rel="apple-touch-icon" href="icons/icon-192.png">
 <style>
@@ -19,7 +19,7 @@ main{max-width:1560px;margin:auto;padding:20px}.layout{display:grid;grid-templat
 </head>
 <body>
 <header><div><strong>THE WEEKLY FLYER</strong><small>Editor manual de ofertas · prepara una vez, graba automáticamente</small></div><span class="pill">Marcas ilimitadas · Colores automáticos · Grabación automática</span></header>
-<main><div class="actions" style="margin-bottom:10px"><button id="installPWA" class="btn primary hidden">⬇ Instalar aplicación en Android</button><span id="pwaInfo" class="muted">Instala desde Chrome cuando esté publicada en HTTPS.</span></div>
+<main><div class="actions" style="margin-bottom:10px"><button id="installPWA" class="btn primary hidden">⬇ Instalar aplicación en Android</button><span id="pwaInfo" class="muted">Para instalar: publica estos archivos en HTTPS y abre esa dirección desde Chrome Android. Abrir este HTML como archivo no permite instalar.</span></div>
 <div class="layout">
 <section>
 <div class="panel">
@@ -431,6 +431,7 @@ languageUI();refreshBtns();resizeEditor();paintEditor();renderOffers();drawFrame
 (()=>{
  let promptEvent;
  const install=document.getElementById('installPWA'),info=document.getElementById('pwaInfo');
+ if(location.protocol==='file:'){info.textContent='No se instala desde un archivo o ZIP. Sube el contenido a HTTPS (Netlify o GitHub Pages) y abre el enlace en Chrome Android.';}
  window.addEventListener('beforeinstallprompt',ev=>{ev.preventDefault();promptEvent=ev;install.classList.remove('hidden');info.textContent='Aplicación lista para instalar';});
  install.addEventListener('click',async()=>{if(!promptEvent)return;promptEvent.prompt();await promptEvent.userChoice;promptEvent=null;install.classList.add('hidden')});
  window.addEventListener('appinstalled',()=>{info.textContent='Aplicación instalada';install.classList.add('hidden')});
