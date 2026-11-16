@@ -19,12 +19,7 @@ main{max-width:1560px;margin:auto;padding:20px}.layout{display:grid;grid-templat
 </head>
 <body>
 <header><div><strong>THE WEEKLY FLYER</strong><small>Editor manual de ofertas · prepara una vez, graba automáticamente</small></div><span class="pill">Marcas ilimitadas · Colores automáticos · Grabación automática</span></header>
-<main><div class="panel" style="margin-bottom:14px;border-color:#d5ff48" id="installPanel">
- <h2>📲 Instalar The Weekly Flyer Studio</h2>
- <div class="actions"><button id="installPWA" type="button" class="btn primary">⬇ Instalar en Android</button><button id="checkPWA" type="button" class="btn">🔍 Revisar instalación</button></div>
- <p id="pwaInfo" class="muted" aria-live="polite">Comprueba que los íconos estén publicados. La opción de instalar depende de Chrome.</p>
- <div id="pwaChecks" class="muted" style="white-space:pre-line;margin-top:7px"></div>
- </div>
+<main>
 <div class="layout">
 <section>
 <div class="panel">
@@ -433,83 +428,9 @@ languageUI();refreshBtns();resizeEditor();paintEditor();renderOffers();drawFrame
 })();
 </script>
 <script>
-(()=>{
- let promptEvent=null;
- const install=document.getElementById('installPWA');
- const check=document.getElementById('checkPWA');
- const info=document.getElementById('pwaInfo');
- const result=document.getElementById('pwaChecks');
- const say=s=>{info.textContent=s;};
- const ok=(label,value)=>`${value?'✅':'❌'} ${label}`;
- window.addEventListener('beforeinstallprompt',ev=>{
-   ev.preventDefault();promptEvent=ev;
-   say('✅ Chrome confirmó que la aplicación se puede instalar. Toca «Instalar en Android».');
- });
- window.addEventListener('appinstalled',()=>{
-   promptEvent=null;say('✅ Aplicación instalada. Búscala entre tus aplicaciones.');
- });
- async function diagnosis(){
-  const lines=[];
-  const secure=location.protocol==='https:'||location.hostname==='localhost';
-  lines.push(ok('Conexión HTTPS',secure));
-  if(!secure){
-   lines.push('Estás abriendo '+location.protocol+'; necesitas la URL pública de GitHub Pages (https://usuario.github.io/repositorio/), no github.com ni un HTML local.');
-  }
-  const link=document.querySelector('link[rel="manifest"]');
-  let manifest=null;
-  if(link){
-   try{
-    const u=new URL(link.getAttribute('href'),location.href);
-    const response=await fetch(u.href,{cache:'no-store'});
-    if(!response.ok)throw Error('HTTP '+response.status);
-    manifest=await response.json();
-    lines.push(ok('Manifiesto accesible y válido',true));
-    const start=new URL(manifest.start_url||'./',u);
-    const scope=new URL(manifest.scope||'./',u);
-    lines.push(ok('Inicio dentro del sitio y ámbito',start.origin===location.origin&&start.pathname.startsWith(scope.pathname)));
-    lines.push(ok('Modo de aplicación', ['standalone','fullscreen','minimal-ui'].includes(manifest.display)));
-    const icons=manifest.icons||[];
-    for(const sz of [192,512]){
-     const ico=icons.find(i=>(i.sizes||'').split(/\s+/).includes(`${sz}x${sz}`)&&(!i.purpose||i.purpose.includes('any')));
-     if(!ico){lines.push(ok(`Icono ${sz} × ${sz}`,false));continue;}
-     try{
-      const r=await fetch(new URL(ico.src,u).href,{cache:'no-store'});
-      if(!r.ok)throw Error('HTTP '+r.status);
-      const blob=await r.blob();
-      const bmp=await createImageBitmap(blob);
-      lines.push(ok(`Icono ${sz} × ${sz} cargado`,bmp.width===sz&&bmp.height===sz));bmp.close();
-     }catch(e){lines.push(ok(`Icono ${sz} × ${sz}: ${e.message}`,false))}
-    }
-   }catch(e){lines.push(ok('Manifiesto: '+e.message,false));}
-  }else lines.push(ok('Enlace al manifiesto',false));
-  if('serviceWorker' in navigator&&secure){
-   try{const reg=await navigator.serviceWorker.register('./sw.js');
-    lines.push(ok('Service worker registrado',!!reg));
-   }catch(e){lines.push(ok('Service worker: '+e.message,false));}
-  }
-  lines.push('URL actual: '+location.href); lines.push('Prueba ícono 192: '+new URL('./icon-192.png',location.href).href); lines.push('Prueba ícono 512: '+new URL('./icon-512.png',location.href).href);
-  if(window.matchMedia('(display-mode: standalone)').matches)lines.push('✅ Ya estás usando la aplicación instalada.');
-  else if(promptEvent)lines.push('✅ Chrome ofreció instalar. Pulsa el botón superior.');
-  else lines.push('ℹ️ Si todas las comprobaciones son ✅ y Chrome no ofrece instalar, abre el menú ⋮ > Añadir a pantalla de inicio / Instalar aplicación. Es posible que ya esté instalada o que Chrome todavía no haya autorizado la ventana de instalación.');
-  result.textContent=lines.join('\n');
- }
- check.addEventListener('click',diagnosis);
- install.addEventListener('click',async()=>{
-  if(promptEvent){
-   const ev=promptEvent;promptEvent=null;
-   await ev.prompt();const choice=await ev.userChoice;
-   say(choice.outcome==='accepted'?'Instalación aceptada por Chrome.':'Instalación cancelada. Puedes volver a intentarlo desde el menú ⋮ de Chrome.');
-  }else{
-   say('Chrome todavía no habilita el aviso de instalación. Usa «Revisar instalación» para comprobar los archivos, luego abre el menú ⋮ > Instalar aplicación / Agregar a pantalla principal.');
-   await diagnosis();
-  }
- });
- if('serviceWorker' in navigator && (location.protocol==='https:'||location.hostname==='localhost')){
-  window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js').catch(err=>{say('El service worker no se registró: '+err.message)}));
- }
- if(location.protocol==='file:')say('No se instala desde archivo. Publícala primero en GitHub Pages y ábrela con el enlace github.io.');
- else if(location.hostname==='github.com')say('Estás viendo GitHub, no GitHub Pages. Abre el enlace github.io publicado.');
- else say('Toca «Revisar instalación» para verificar todos los archivos en el servidor.');
-})();
+// La aplicación no muestra un panel de instalación: entra directamente al editor.
+if ('serviceWorker' in navigator && (location.protocol === 'https:' || location.hostname === 'localhost')) {
+  window.addEventListener('load', () => navigator.serviceWorker.register('./sw.js').catch(console.warn));
+}
 </script>
 </body></html>

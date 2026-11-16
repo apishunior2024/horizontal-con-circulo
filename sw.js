@@ -1,5 +1,5 @@
 // v6: cache limpio, rutas relativas compatibles con GitHub Pages /repositorio/
-const CACHE = 'weekly-flyer-studio-v6';
+const CACHE = 'weekly-flyer-studio-v7';
 const FILES = ['./index.html','./manifest.webmanifest','./icon-192.png','./icon-512.png','./icon-maskable-192.png','./icon-maskable-512.png'];
 self.addEventListener('install', event => {event.waitUntil((async()=>{const cache=await caches.open(CACHE); await cache.addAll(FILES.map(p=>new Request(p,{cache:'reload'}))); await self.skipWaiting();})());});
 self.addEventListener('activate',event=>{event.waitUntil((async()=>{for(const key of await caches.keys()) if(key !== CACHE && (key.startsWith('weekly-flyer-')||key.startsWith('flyer-studio-pwa-'))) await caches.delete(key);await self.clients.claim();})());});
